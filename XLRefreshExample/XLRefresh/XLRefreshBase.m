@@ -115,9 +115,8 @@
 }
 
 -(void)endRefreshing{
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, XLRefreshAnimationDuration * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, XLRefreshAnimationDuration * NSEC_PER_SEC);
+    dispatch_after(time, dispatch_get_main_queue(), ^(void){
         [_animationView endAnimation];
         self.state = XLRefreshStatePulling;
         self.refreshProgress = 0;
