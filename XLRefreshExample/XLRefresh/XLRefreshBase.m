@@ -61,6 +61,11 @@
     NSLog(@"更新Frame");
 }
 
+//设置回调对象和方法
+-(void)setRefreshingTarget:(id)target refreshingAction:(SEL)action{
+    self.refreshingTarget = target;
+    self.refreshingAction = action;
+}
 
 #pragma mark -
 #pragma mark KVO
@@ -109,9 +114,7 @@
 -(void)startRefreshing{
     self.state = XLRefreshStateRefreshIng;
     [_animationView startAnimation];
-    if (_refreshingBlock) {
-        _refreshingBlock();
-    }
+    [self sendRefresingCallBack];
 }
 
 -(void)endRefreshing{
@@ -119,6 +122,18 @@
         [_animationView endAnimation];
         self.state = XLRefreshStatePulling;
     });
+}
+
+//发送回调
+-(void)sendRefresingCallBack{
+    
+    if ([self.refreshingTarget respondsToSelector:self.refreshingAction]) {
+        XLRefreshMsgSend(XLRefreshMsgTarget(self.refreshingTarget), self.refreshingAction, self);
+    }
+    
+    if (_refreshingBlock) {
+        _refreshingBlock();
+    }
 }
 
 #pragma mark -

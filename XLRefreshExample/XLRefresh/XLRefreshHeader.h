@@ -10,6 +10,10 @@
 
 @interface XLRefreshHeader : XLRefreshBase
 
+//通过block设置回调
 +(XLRefreshHeader*)headerWithRefreshingBlock:(XLRefreshingBlock)block;
+
+//通过代理设置回调
++(XLRefreshHeader*)headerWithRefreshingTarget:(id)target refreshingAction:(SEL)action;
 
 @end

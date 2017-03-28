@@ -19,6 +19,15 @@
     return header;
 }
 
++(XLRefreshHeader*)headerWithRefreshingTarget:(id)target refreshingAction:(SEL)action{
+    XLRefreshHeader *header = [[XLRefreshHeader alloc] init];
+    [header setRefreshingTarget:target refreshingAction:action];
+    header.stateTitle = @{XLStatePullingKey:@"下拉即可刷新",
+                          XLStateWillRefreshKey:@"释放刷新...",
+                          XLStateRefreshingKey:@"正在刷新..."};
+    return header;
+}
+
 -(void)updateRect{
     [super updateRect];
     self.frame = CGRectMake(0, -XLRefreshHeaderHeight,_scrollView.bounds.size.width, XLRefreshHeaderHeight);
@@ -27,6 +36,7 @@
 -(void)scrollViewContentOffsetDidChange:(NSDictionary *)change{
     
     [super scrollViewContentOffsetDidChange:change];
+    
     if (_scrollView.contentOffset.y > 0) {return;}
     //拖拽的距离
     CGFloat distance = fabs(_scrollView.contentOffset.y);

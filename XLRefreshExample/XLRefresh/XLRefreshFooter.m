@@ -19,6 +19,15 @@
     return footer;
 }
 
++(XLRefreshFooter*)footerWithRefreshingTarget:(id)target refreshingAction:(SEL)action{
+    XLRefreshFooter *footer = [[XLRefreshFooter alloc] init];
+    [footer setRefreshingTarget:target refreshingAction:action];
+    footer.stateTitle = @{XLStatePullingKey:@"下拉即可刷新",
+                          XLStateWillRefreshKey:@"释放刷新...",
+                          XLStateRefreshingKey:@"正在刷新..."};
+    return footer;
+}
+
 -(void)updateRect{
     [super updateRect];
     self.frame = CGRectMake(0, _scrollView.contentSize.height,_scrollView.bounds.size.width, XLRefreshFooterHeight);
@@ -26,8 +35,6 @@
 
 -(void)scrollViewContentOffsetDidChange:(NSDictionary *)change{
     [super scrollViewContentOffsetDidChange:change];
-    
-    
     //拖拽距离
     CGFloat dragHeight = _scrollView.contentOffset.y + _scrollView.bounds.size.height;
     //滚动最大距离

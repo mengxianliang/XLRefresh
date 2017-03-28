@@ -10,6 +10,10 @@
 
 @interface XLRefreshFooter : XLRefreshBase
 
+//通过block设置回调
 +(XLRefreshFooter*)footerWithRefreshingBlock:(XLRefreshingBlock)block;
+
+//通过代理设置回调
++(XLRefreshFooter*)footerWithRefreshingTarget:(id)target refreshingAction:(SEL)action;
 
 @end
