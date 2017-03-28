@@ -92,13 +92,13 @@
     
     switch (state) {
         case XLRefreshStatePulling:
-            _textLabel.text = @"下拉即可刷新";
+            _textLabel.text = _stateTitle[XLStatePullingKey];
             break;
         case XLRefreshStateWillRefresh:
-            _textLabel.text = @"释放刷新...";
+            _textLabel.text = _stateTitle[XLStateWillRefreshKey];
             break;
         case XLRefreshStateRefreshIng:
-            _textLabel.text = @"正在刷新...";
+            _textLabel.text = _stateTitle[XLStateRefreshingKey];
             break;
             
         default:
@@ -115,7 +115,7 @@
 }
 
 -(void)endRefreshing{
-    dispatch_after(0.35, dispatch_get_main_queue(), ^(void){
+    dispatch_after(XLRefreshAnimationDuration, dispatch_get_main_queue(), ^(void){
         [_animationView endAnimation];
         self.state = XLRefreshStatePulling;
     });
@@ -129,10 +129,11 @@
     
     _animationView.progress = refreshProgress;
     _textLabel.alpha = refreshProgress;
+    _animationView.alpha = refreshProgress;
 }
 
 -(BOOL)isRefreshing{
-    return _state == XLRefreshStateRefreshIng || _state == XLRefreshStatePulling;
+    return _state == XLRefreshStateRefreshIng;
 }
 
 @end

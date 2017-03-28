@@ -36,14 +36,28 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-//    _tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
-//        NSLog(@"刷新方法");
-//    }];
+    _tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
+        [self refreshMethod];
+        NSLog(@"刷新方法");
+    }];
     
     _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
+        [self loadMore];
         NSLog(@"加载更多方法");
     }];
 }
+
+#pragma mark -
+#pragma mark 其他方法
+-(void)refreshMethod{
+    NSLog(@"刷新方法");
+}
+
+-(void)loadMore{
+    NSLog(@"加载更多方法");
+}
+
+
 
 #pragma mark -
 #pragma mark TableViewDelegate&DataSource
@@ -71,7 +85,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView.xl_header endRefreshing];
+    if ([tableView.xl_header isRefreshing]) {
+        [tableView.xl_header endRefreshing];
+    }
+    
+    if ([tableView.xl_footer isRefreshing]){
+        [tableView.xl_footer endRefreshing];
+    }
 }
 
 

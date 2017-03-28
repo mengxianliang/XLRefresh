@@ -13,21 +13,21 @@
 +(XLRefreshFooter*)footerWithRefreshingBlock:(XLRefreshingBlock)block{
     XLRefreshFooter *footer = [[XLRefreshFooter alloc] init];
     footer.refreshingBlock = block;
-    footer.stateTitle = @{XLStatePullingKey:@"1111",
-                          XLStateWillRefreshKey:@"1111",
-                          XLStateRefreshingKey:@"1111"};
+    footer.stateTitle = @{XLStatePullingKey:@"上拉即可加载",
+                          XLStateWillRefreshKey:@"释放加载...",
+                          XLStateRefreshingKey:@"正在加载..."};
     return footer;
 }
 
 -(void)updateRect{
     [super updateRect];
-    self.frame = CGRectMake(0, _scrollView.contentSize.height,_scrollView.bounds.size.width, XLRefreshHeaderHeight);
+    self.frame = CGRectMake(0, _scrollView.contentSize.height,_scrollView.bounds.size.width, XLRefreshFooterHeight);
 }
 
 -(void)scrollViewContentOffsetDidChange:(NSDictionary *)change{
     [super scrollViewContentOffsetDidChange:change];
     
-    if (self.state == XLRefreshStateRefreshIng) {return;}
+    
     //拖拽距离
     CGFloat dragHeight = _scrollView.contentOffset.y + _scrollView.bounds.size.height;
     //滚动最大距离
@@ -36,6 +36,7 @@
     CGFloat distance = fabs(dragHeight - contentHeight);
     //居中显示
     self.center = CGPointMake(self.center.x, contentHeight + distance/2.0f);
+    if (self.state == XLRefreshStateRefreshIng) {return;}
     //动画进度
     self.refreshProgress = distance/XLRefreshHeaderHeight;
     //拖拽时 当拖拽距离大于header的高度时 状态切换成准备拖拽的状态
@@ -54,19 +55,17 @@
 
 -(void)startRefreshing{
     [super startRefreshing];
-    [UIView animateWithDuration:0.35 animations:^{
+    [UIView animateWithDuration:XLRefreshAnimationDuration animations:^{
         [_scrollView setContentInset:UIEdgeInsetsMake(0, 0, self.bounds.size.height, 0)];
-//        [_scrollView setContentOffset:CGPointMake(0, -self.bounds.size.height) animated:false];
+        [_scrollView setContentOffset:CGPointMake(0, _scrollView.contentSize.height - _scrollView.bounds.size.height + self.bounds.size.height) animated:false];
     }];
 }
 
 -(void)endRefreshing{
     [super endRefreshing];
-    [UIView animateWithDuration:0.35 animations:^{
+    [UIView animateWithDuration:XLRefreshAnimationDuration animations:^{
         [_scrollView setContentInset:UIEdgeInsetsZero];
-//        [_scrollView setContentOffset:CGPointZero animated:false];
-    }completion:^(BOOL finished) {
-        
+        [_scrollView setContentOffset:CGPointMake(0, _scrollView.contentSize.height - _scrollView.bounds.size.height) animated:false];
     }];
 }
 

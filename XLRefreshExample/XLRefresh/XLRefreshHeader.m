@@ -28,11 +28,11 @@
     
     [super scrollViewContentOffsetDidChange:change];
     if (_scrollView.contentOffset.y > 0) {return;}
-    if (self.state == XLRefreshStateRefreshIng) {return;}
     //拖拽的距离
     CGFloat distance = fabs(_scrollView.contentOffset.y);
     //居中显示
     self.center = CGPointMake(self.center.x, -distance/2.0f);
+    if (self.state == XLRefreshStateRefreshIng) {return;}
     //动画进度
     self.refreshProgress = distance/XLRefreshHeaderHeight;
     //拖拽时 当拖拽距离大于header的高度时 状态切换成准备拖拽的状态
@@ -51,7 +51,7 @@
 
 -(void)startRefreshing{
     [super startRefreshing];
-    [UIView animateWithDuration:0.35 animations:^{
+    [UIView animateWithDuration:XLRefreshAnimationDuration animations:^{
         [_scrollView setContentInset:UIEdgeInsetsMake(self.bounds.size.height, 0, 0, 0)];
         [_scrollView setContentOffset:CGPointMake(0, -self.bounds.size.height) animated:false];
     }];
@@ -59,11 +59,9 @@
 
 -(void)endRefreshing{
     [super endRefreshing];
-    [UIView animateWithDuration:0.35 animations:^{
+    [UIView animateWithDuration:XLRefreshAnimationDuration animations:^{
         [_scrollView setContentInset:UIEdgeInsetsZero];
         [_scrollView setContentOffset:CGPointZero animated:false];
-    }completion:^(BOOL finished) {
-        
     }];
 }
 

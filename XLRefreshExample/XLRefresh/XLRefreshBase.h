@@ -12,11 +12,15 @@ typedef void (^XLRefreshingBlock)();
 
 static CGFloat XLRefreshHeaderHeight = 100.0;
 
+static CGFloat XLRefreshFooterHeight = 80.0;
+
+static CGFloat XLRefreshAnimationDuration = 0.35;
+
 static NSString *XLRefreshKeyPathContentOffset = @"contentOffset";
 
-UIKIT_EXTERN NSString *const XLStatePullingKey;
-UIKIT_EXTERN NSString *const XLStateWillRefreshKey;
-UIKIT_EXTERN NSString *const XLStateRefreshingKey;
+static NSString * XLStatePullingKey = @"XLStatePullingKey";
+static NSString * XLStateWillRefreshKey = @"XLStateWillRefreshKey";
+static NSString * XLStateRefreshingKey = @"XLStateRefreshingKey";
 
 typedef NS_ENUM(NSInteger,XLRefreshState){
     //初始状态
