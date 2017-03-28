@@ -22,15 +22,15 @@
     //总宽度
     CGFloat W = self.bounds.size.width;
     //线的长度
-    CGFloat h = self.bounds.size.width/4.0f;
+    CGFloat h = H/4.0f;
     //线段最长移动距离
     CGFloat maxDistance = H/2 - h;
     //线段当前移动距离
     CGFloat moveDisatnce = maxDistance * _progress*2;
     //弧的半径
-    CGFloat r = self.bounds.size.width/4.0f;
+    CGFloat r = W/5.0f;
     //箭头长度
-    CGFloat arrowLength = 5.0f;
+    CGFloat arrowLength = 3.0f;
     //箭头角度
     CGFloat arrowAngle = M_PI/6.f;
     
@@ -64,7 +64,7 @@
         //由progress获取旋转的角度
         CGFloat moveAngle = M_PI*(_progress - 0.5)*2*0.9;
         //设置弧线
-        [curvePath1 addArcWithCenter:CGPointMake(H/2, H/2) radius:r startAngle:M_PI endAngle:M_PI + moveAngle  clockwise:true];
+        [curvePath1 addArcWithCenter:CGPointMake(W/2, H/2) radius:r startAngle:M_PI endAngle:M_PI + moveAngle  clockwise:true];
         //添加箭头
         CGPoint point = curvePath1.currentPoint;
         CGPoint arrowPoint = CGPointMake(point.x - arrowLength*cos(arrowAngle - moveAngle), point.y + arrowLength*sin(arrowAngle - moveAngle));
@@ -101,7 +101,7 @@
         
         CGFloat moveAngle = M_PI*(_progress - 0.5)*2*0.9;
         
-        [curvePath2 addArcWithCenter:CGPointMake(H/2, H/2) radius:r startAngle:0 endAngle:moveAngle  clockwise:true];
+        [curvePath2 addArcWithCenter:CGPointMake(W/2, H/2) radius:r startAngle:0 endAngle:moveAngle  clockwise:true];
         
         CGPoint point = curvePath2.currentPoint;
         CGPoint arrowPoint = CGPointMake(point.x + arrowLength*cos(arrowAngle - moveAngle), point.y - arrowLength*sin(arrowAngle - moveAngle));
@@ -115,6 +115,7 @@
     CGContextRestoreGState(contex);
     
     [[UIColor blackColor] setStroke];
+    
     [curvePath1 stroke];
     [curvePath2 stroke];
     

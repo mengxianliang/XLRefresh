@@ -12,4 +12,8 @@
 
 @property (nonatomic, assign) CGFloat progress;
 
+-(void)startAnimation;
+
+-(void)endAnimation;
+
 @end

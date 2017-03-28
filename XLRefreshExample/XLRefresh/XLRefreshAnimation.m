@@ -12,6 +12,8 @@
 @interface XLRefreshAnimation ()
 {
     XLRefreshAnimationLayer *_layer;
+    
+    BOOL _animating;
 }
 @end
 
@@ -20,6 +22,7 @@
 -(instancetype)init{
     if (self = [super init]) {
         _layer = [XLRefreshAnimationLayer layer];
+        _layer.contentsScale = [UIScreen mainScreen].scale;
         [self.layer addSublayer:_layer];
         _layer.progress = 0;
     }
@@ -33,16 +36,35 @@
 
 -(void)setProgress:(CGFloat)progress{
     _progress = progress;
+    if (_animating == true) {return;}
     //旋转
     if (_progress > 1) {
         CGFloat angle = M_PI * (_progress - 1.0f);
-        NSLog(@"angle = %f",angle);
         _layer.affineTransform = CGAffineTransformMakeRotation(angle);
     }else{//画圆
         _layer.affineTransform = CGAffineTransformIdentity;
         _layer.progress = progress;
     }
-    
+}
+
+//旋转动画
+-(void)startAnimation{
+    _animating = true;
+    _layer.progress = 1.0f;
+    _layer.affineTransform = CGAffineTransformIdentity;
+    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = @(M_PI * 2.0);
+    rotationAnimation.duration = 0.5f;
+    rotationAnimation.autoreverses = NO;
+    rotationAnimation.repeatCount = HUGE_VALF;
+    rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    [_layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+}
+
+-(void)endAnimation{
+    [_layer removeAllAnimations];
+    _animating = false;
+    _layer.affineTransform = CGAffineTransformIdentity;
 }
 
 @end

@@ -25,7 +25,10 @@
 
 -(void)buildTable
 {
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:[UIView new]];
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -34,7 +37,6 @@
         NSLog(@"刷新方法");
     }];
 }
-
 
 #pragma mark -
 #pragma mark TableViewDelegate&DataSource

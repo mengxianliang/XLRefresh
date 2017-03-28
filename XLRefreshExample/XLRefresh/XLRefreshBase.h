@@ -10,7 +10,7 @@
 
 typedef void (^XLRefreshingBlock)();
 
-static CGFloat XLRefreshHeaderHeight = 64.0;
+static CGFloat XLRefreshHeaderHeight = 100.0;
 
 static NSString *XLRefreshKeyPathContentOffset = @"contentOffset";
 

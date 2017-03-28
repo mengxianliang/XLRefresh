@@ -41,9 +41,10 @@
     _textLabel.frame = CGRectMake(0, 0, labelWidth, height);
     _textLabel.center = CGPointMake(self.bounds.size.width/2.0f, _textLabel.center.y);
     
-    _animationView.frame = CGRectMake(CGRectGetMinX(_textLabel.frame) - height, 0, height, height);
-    _animationView.layer.borderWidth = 1;
-    _textLabel.layer.borderWidth = 1;
+    CGFloat animationWidth = height*0.6;
+    _animationView.frame = CGRectMake(CGRectGetMinX(_textLabel.frame) - animationWidth, 0, animationWidth, height);
+//    _animationView.layer.borderWidth = 1;
+//    _textLabel.layer.borderWidth = 1;
 }
 
 -(void)willMoveToSuperview:(UIView *)newSuperview{
@@ -95,10 +96,10 @@
             _textLabel.text = @"下拉即可刷新";
             break;
         case XLRefreshStateWillRefresh:
-            _textLabel.text = @"松开开始刷新";
+            _textLabel.text = @"释放刷新";
             break;
         case XLRefreshStateRefreshIng:
-            _textLabel.text = @"刷新中。。。";
+            _textLabel.text = @"正在刷新...";
             break;
             
         default:
@@ -107,20 +108,29 @@
 }
 
 -(void)startRefreshing{
-    [UIView animateWithDuration:0.3 animations:^{
-        [_scrollView setContentInset:UIEdgeInsetsMake(self.bounds.size.height, 0, 0, 0)];
-    }];
     
-    self.state = XLRefreshStateRefreshIng;
+    [UIView animateWithDuration:0.35 animations:^{
+        [_scrollView setContentInset:UIEdgeInsetsMake(self.bounds.size.height, 0, 0, 0)];
+        [_scrollView setContentOffset:CGPointMake(0, -self.bounds.size.height) animated:false];
+    }completion:^(BOOL finished) {
+        [_animationView startAnimation];
+        self.state = XLRefreshStateRefreshIng;
+    }];
 }
 
 -(void)endRefreshing{
-    [UIView animateWithDuration:0.3 animations:^{
+    
+    [UIView animateWithDuration:0.35 animations:^{
         [_scrollView setContentInset:UIEdgeInsetsZero];
+        [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    }completion:^(BOOL finished) {
+        [_animationView endAnimation];
+        self.state = XLRefreshStatePulling;
     }];
 }
 
 -(void)setRefreshProgress:(CGFloat)refreshProgress{
+    _textLabel.alpha = refreshProgress;
     _refreshProgress = refreshProgress;
     _animationView.progress = refreshProgress;
 }
