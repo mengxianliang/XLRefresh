@@ -30,7 +30,7 @@
     //弧的半径
     CGFloat r = W/5.0f;
     //箭头长度
-    CGFloat arrowLength = 3.0f;
+    CGFloat arrowLength = 2.0f;
     //箭头角度
     CGFloat arrowAngle = M_PI/6.f;
     
@@ -62,7 +62,7 @@
         [curvePath1 addLineToPoint:pointB];
         
         //由progress获取旋转的角度
-        CGFloat moveAngle = M_PI*(_progress - 0.5)*2*0.9;
+        CGFloat moveAngle = M_PI*(_progress - 0.5)*2*0.8;
         //设置弧线
         [curvePath1 addArcWithCenter:CGPointMake(W/2, H/2) radius:r startAngle:M_PI endAngle:M_PI + moveAngle  clockwise:true];
         //添加箭头
@@ -99,7 +99,7 @@
         [curvePath2 moveToPoint:pointC];
         [curvePath2 addLineToPoint:pointD];
         
-        CGFloat moveAngle = M_PI*(_progress - 0.5)*2*0.9;
+        CGFloat moveAngle = M_PI*(_progress - 0.5)*2*0.8;
         
         [curvePath2 addArcWithCenter:CGPointMake(W/2, H/2) radius:r startAngle:0 endAngle:moveAngle  clockwise:true];
         

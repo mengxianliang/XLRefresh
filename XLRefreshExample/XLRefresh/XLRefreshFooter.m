@@ -22,27 +22,33 @@
 +(XLRefreshFooter*)footerWithRefreshingTarget:(id)target refreshingAction:(SEL)action{
     XLRefreshFooter *footer = [[XLRefreshFooter alloc] init];
     [footer setRefreshingTarget:target refreshingAction:action];
-    footer.stateTitle = @{XLStatePullingKey:@"下拉即可刷新",
-                          XLStateWillRefreshKey:@"释放刷新...",
-                          XLStateRefreshingKey:@"正在刷新..."};
+    footer.stateTitle = @{XLStatePullingKey:@"上拉即可加载",
+                          XLStateWillRefreshKey:@"释放加载...",
+                          XLStateRefreshingKey:@"正在加载..."};
     return footer;
 }
 
 -(void)updateRect{
     [super updateRect];
-    self.frame = CGRectMake(0, _scrollView.contentSize.height,_scrollView.bounds.size.width, XLRefreshFooterHeight);
+    self.frame = CGRectMake(0,[self targetY],_scrollView.bounds.size.width, XLRefreshFooterHeight);
 }
 
 -(void)scrollViewContentOffsetDidChange:(NSDictionary *)change{
     [super scrollViewContentOffsetDidChange:change];
-    //拖拽距离
-    CGFloat dragHeight = _scrollView.contentOffset.y + _scrollView.bounds.size.height;
-    //滚动最大距离
-    CGFloat contentHeight = _scrollView.contentSize.height;
-    if (dragHeight < contentHeight) {return;}
-    CGFloat distance = fabs(dragHeight - contentHeight);
-    //居中显示
-    self.center = CGPointMake(self.center.x, contentHeight + distance/2.0f);
+    CGFloat distance = 0;
+    //比较短
+    if (_scrollView.contentSize.height < _scrollView.bounds.size.height) {
+        if (_scrollView.contentOffset.y < 0) {return;}
+        distance = _scrollView.contentOffset.y;
+        self.center = CGPointMake(self.center.x, _scrollView.bounds.size.height + distance/2.0f);
+    }else{
+        //拖拽距离
+        CGFloat targetOffsetY = _scrollView.contentSize.height - _scrollView.bounds.size.height;
+        if (_scrollView.contentOffset.y < targetOffsetY) {return;}
+        distance = fabs(targetOffsetY - _scrollView.contentOffset.y);
+        //居中显示
+        self.center = CGPointMake(self.center.x, _scrollView.contentSize.height + distance/2.0f);
+    }
     if (self.state == XLRefreshStateRefreshIng) {return;}
     //动画进度
     self.refreshProgress = distance/XLRefreshHeaderHeight;
@@ -60,11 +66,24 @@
     }
 }
 
+//目标位置
+-(CGFloat)targetY{
+    CGFloat Y = _scrollView.contentSize.height;
+    if (_scrollView.contentSize.height < _scrollView.bounds.size.height) {
+        Y = _scrollView.bounds.size.height;
+    }
+    return Y;
+}
+
 -(void)startRefreshing{
     [super startRefreshing];
     [UIView animateWithDuration:XLRefreshAnimationDuration animations:^{
         [_scrollView setContentInset:UIEdgeInsetsMake(0, 0, self.bounds.size.height, 0)];
-        [_scrollView setContentOffset:CGPointMake(0, _scrollView.contentSize.height - _scrollView.bounds.size.height + self.bounds.size.height) animated:false];
+        if (_scrollView.contentSize.height < _scrollView.bounds.size.height) {
+            [_scrollView setContentOffset:CGPointMake(0,self.bounds.size.height) animated:false];
+        }else{
+            [_scrollView setContentOffset:CGPointMake(0, _scrollView.contentSize.height - _scrollView.bounds.size.height + self.bounds.size.height) animated:false];
+        }
     }];
 }
 
@@ -72,7 +91,11 @@
     [super endRefreshing];
     [UIView animateWithDuration:XLRefreshAnimationDuration animations:^{
         [_scrollView setContentInset:UIEdgeInsetsZero];
-        [_scrollView setContentOffset:CGPointMake(0, _scrollView.contentSize.height - _scrollView.bounds.size.height) animated:false];
+        if (_scrollView.contentSize.height < _scrollView.bounds.size.height) {
+            [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+        }else{
+            [_scrollView setContentOffset:CGPointMake(0, _scrollView.contentSize.height - _scrollView.bounds.size.height) animated:false];
+        }
     }];
 }
 

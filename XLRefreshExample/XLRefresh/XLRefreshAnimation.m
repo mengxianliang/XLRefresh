@@ -50,7 +50,7 @@
 //旋转动画
 -(void)startAnimation{
     _animating = true;
-    _layer.progress = 1.0f;
+    self.progress = 1.0f;
     _layer.affineTransform = CGAffineTransformIdentity;
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotationAnimation.toValue = @(M_PI * 2.0);

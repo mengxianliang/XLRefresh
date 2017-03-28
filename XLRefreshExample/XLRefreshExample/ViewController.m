@@ -36,42 +36,47 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-    _tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
-        [self refreshMethod];
-        NSLog(@"刷新方法");
-    }];
-    
-    _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
-        [self loadMore];
-        NSLog(@"加载更多方法");
-    }];
+    _tableView.xl_header = [XLRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshMethod)];
+    _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMethod)];
 }
 
 #pragma mark -
-#pragma mark 其他方法
+#pragma mark 刷新/加载方法
 -(void)refreshMethod{
-    NSLog(@"刷新方法");
+    //方便测试延时两秒后执行隐藏操作
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [_tableView.xl_header endRefreshing];
+    });
 }
 
--(void)loadMore{
-    NSLog(@"加载更多方法");
+-(void)loadMoreMethod{
+    //方便测试延时两秒后执行隐藏操作
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [_tableView.xl_footer endRefreshing];
+    });
 }
 
 
 
 #pragma mark -
 #pragma mark TableViewDelegate&DataSource
+-(NSArray*)titles{
+    return @[@"*上下滑动列表执行刷新/加载方法*",@"点我进入自动下拉刷新",@"点我进入自动上拉刷新"];
+}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 50;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return [self titles].count;
 }
-
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -79,25 +84,29 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"第%zd行",indexPath.row];
+    cell.textLabel.text = [self titles][indexPath.row];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([tableView.xl_header isRefreshing]) {
-        [tableView.xl_header endRefreshing];
-    }
     
-    if ([tableView.xl_footer isRefreshing]){
-        [tableView.xl_footer endRefreshing];
+    switch (indexPath.row) {
+        case 1:
+            [tableView.xl_header startRefreshing];
+            break;
+        case 2:
+            [tableView.xl_footer startRefreshing];
+            break;
+            
+        default:
+            break;
     }
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 
 @end

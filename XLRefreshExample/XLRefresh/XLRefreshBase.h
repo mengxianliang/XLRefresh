@@ -11,9 +11,9 @@
 
 typedef void (^XLRefreshingBlock)();
 
-static CGFloat XLRefreshHeaderHeight = 100.0;
+static CGFloat XLRefreshHeaderHeight = 80.0;
 
-static CGFloat XLRefreshFooterHeight = 80.0;
+static CGFloat XLRefreshFooterHeight = 60.0;
 
 static CGFloat XLRefreshAnimationDuration = 0.35;
 
@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger,XLRefreshState){
 //状态提示文字
 @property (nonatomic, strong) NSDictionary *stateTitle;
 //更新frame
--(void)updateRect;
+-(void)updateRect NS_REQUIRES_SUPER;
 //开始刷新
 -(void)startRefreshing NS_REQUIRES_SUPER;
 //结束刷新

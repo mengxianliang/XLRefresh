@@ -62,7 +62,7 @@
 -(void)startRefreshing{
     [super startRefreshing];
     [UIView animateWithDuration:XLRefreshAnimationDuration animations:^{
-        [_scrollView setContentInset:UIEdgeInsetsMake(self.bounds.size.height, 0, 0, 0)];
+        _scrollView.contentInset = UIEdgeInsetsMake(self.bounds.size.height, 0, 0, 0);
         [_scrollView setContentOffset:CGPointMake(0, -self.bounds.size.height) animated:false];
     }];
 }

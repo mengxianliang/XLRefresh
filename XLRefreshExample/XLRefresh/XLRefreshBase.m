@@ -21,9 +21,8 @@
     return self;
 }
 
+//1.创建UI
 -(void)initUI{
-    NSLog(@"创建UI");
-    
     _animationView = [[XLRefreshAnimation alloc] init];
     [self addSubview:_animationView];
     
@@ -32,10 +31,21 @@
     [self addSubview:_textLabel];
 }
 
+//2.添加功能
+-(void)willMoveToSuperview:(UIView *)newSuperview{
+    [super willMoveToSuperview:newSuperview];
+    if (![newSuperview isKindOfClass:[UIScrollView class]]) {return;}
+    [self removeObserves];
+    _scrollView = (UIScrollView*)newSuperview;
+    //允许垂直
+    _scrollView.alwaysBounceVertical = YES;
+    [self updateRect];
+    [self addObserves];
+}
+
+//3.放置SubView
 -(void)layoutSubviews{
     [super layoutSubviews];
-    NSLog(@"更新Subviews");
-    
     CGFloat labelWidth = self.bounds.size.width/3;
     CGFloat height = self.bounds.size.height;
     _textLabel.frame = CGRectMake(0, 0, labelWidth, height);
@@ -45,21 +55,7 @@
     _animationView.frame = CGRectMake(CGRectGetMinX(_textLabel.frame) - animationWidth, 0, animationWidth, height);
 }
 
--(void)willMoveToSuperview:(UIView *)newSuperview{
-    [super willMoveToSuperview:newSuperview];
-    if (![newSuperview isKindOfClass:[UIScrollView class]]) {return;}
-    [self removeObserves];
-    _scrollView = (UIScrollView*)newSuperview;
-    //允许垂直
-    _scrollView.alwaysBounceVertical = YES;
-    NSLog(@"是ScrollView");
-    [self updateRect];
-    [self addObserves];
-}
-
--(void)updateRect{
-    NSLog(@"更新Frame");
-}
+-(void)updateRect{}
 
 //设置回调对象和方法
 -(void)setRefreshingTarget:(id)target refreshingAction:(SEL)action{
@@ -113,14 +109,18 @@
 
 -(void)startRefreshing{
     self.state = XLRefreshStateRefreshIng;
+    self.refreshProgress = 1;
     [_animationView startAnimation];
     [self sendRefresingCallBack];
 }
 
 -(void)endRefreshing{
-    dispatch_after(XLRefreshAnimationDuration, dispatch_get_main_queue(), ^(void){
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, XLRefreshAnimationDuration * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [_animationView endAnimation];
         self.state = XLRefreshStatePulling;
+        self.refreshProgress = 0;
     });
 }
 
@@ -130,7 +130,6 @@
     if ([self.refreshingTarget respondsToSelector:self.refreshingAction]) {
         XLRefreshMsgSend(XLRefreshMsgTarget(self.refreshingTarget), self.refreshingAction, self);
     }
-    
     if (_refreshingBlock) {
         _refreshingBlock();
     }
