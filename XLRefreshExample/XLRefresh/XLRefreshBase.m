@@ -33,14 +33,18 @@
 
 //2.添加功能
 -(void)willMoveToSuperview:(UIView *)newSuperview{
+    
     [super willMoveToSuperview:newSuperview];
-    if (![newSuperview isKindOfClass:[UIScrollView class]]) {return;}
-    [self removeObserves];
-    _scrollView = (UIScrollView*)newSuperview;
-    //允许垂直
-    _scrollView.alwaysBounceVertical = YES;
-    [self updateRect];
-    [self addObserves];
+    
+    if (![newSuperview isKindOfClass:[UIScrollView class]] && newSuperview) {return;}
+    [self removeObservers];
+    if (newSuperview) {
+        _scrollView = (UIScrollView*)newSuperview;
+        //允许垂直
+        _scrollView.alwaysBounceVertical = YES;
+        [self updateRect];
+        [self addObservers];
+    }
 }
 
 //3.放置SubView
@@ -66,20 +70,21 @@
 #pragma mark -
 #pragma mark KVO
 
--(void)addObserves{
+-(void)addObservers{
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
     [_scrollView addObserver:self forKeyPath:XLRefreshKeyPathContentOffset options:options context:nil];
 }
 
--(void)removeObserves{
-    [_scrollView removeObserver:self forKeyPath:XLRefreshKeyPathContentOffset];
+-(void)removeObservers{
+    [self.superview removeObserver:self forKeyPath:XLRefreshKeyPathContentOffset];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    
     // 这个就算看不见也需要处理
     if ([keyPath isEqualToString:XLRefreshKeyPathContentOffset]) {
         [self scrollViewContentOffsetDidChange:change];
+    }else{
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

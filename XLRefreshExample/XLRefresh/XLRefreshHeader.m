@@ -62,16 +62,16 @@
 -(void)startRefreshing{
     [super startRefreshing];
     [UIView animateWithDuration:XLRefreshAnimationDuration animations:^{
-        [_scrollView setContentOffset:CGPointMake(0, -self.bounds.size.height) animated:false];
         _scrollView.contentInset = UIEdgeInsetsMake(self.bounds.size.height, 0, 0, 0);
+        [_scrollView setContentOffset:CGPointMake(0, -self.bounds.size.height) animated:false];
     }];
 }
 
 -(void)endRefreshing{
     [super endRefreshing];
     [UIView animateWithDuration:XLRefreshAnimationDuration animations:^{
-        [_scrollView setContentOffset:CGPointZero animated:false];
         [_scrollView setContentInset:UIEdgeInsetsZero];
+        [_scrollView setContentOffset:CGPointZero animated:false];
     }];
 }
 
