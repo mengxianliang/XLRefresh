@@ -43,8 +43,6 @@
     
     CGFloat animationWidth = height*0.6;
     _animationView.frame = CGRectMake(CGRectGetMinX(_textLabel.frame) - animationWidth, 0, animationWidth, height);
-//    _animationView.layer.borderWidth = 1;
-//    _textLabel.layer.borderWidth = 1;
 }
 
 -(void)willMoveToSuperview:(UIView *)newSuperview{
@@ -91,12 +89,13 @@
 
 -(void)setState:(XLRefreshState)state{
     _state = state;
+    
     switch (state) {
         case XLRefreshStatePulling:
             _textLabel.text = @"下拉即可刷新";
             break;
         case XLRefreshStateWillRefresh:
-            _textLabel.text = @"释放刷新";
+            _textLabel.text = @"释放刷新...";
             break;
         case XLRefreshStateRefreshIng:
             _textLabel.text = @"正在刷新...";
@@ -108,32 +107,32 @@
 }
 
 -(void)startRefreshing{
-    
-    [UIView animateWithDuration:0.35 animations:^{
-        [_scrollView setContentInset:UIEdgeInsetsMake(self.bounds.size.height, 0, 0, 0)];
-        [_scrollView setContentOffset:CGPointMake(0, -self.bounds.size.height) animated:false];
-    }completion:^(BOOL finished) {
-        [_animationView startAnimation];
-        self.state = XLRefreshStateRefreshIng;
-    }];
+    self.state = XLRefreshStateRefreshIng;
+    [_animationView startAnimation];
+    if (_refreshingBlock) {
+        _refreshingBlock();
+    }
 }
 
 -(void)endRefreshing{
-    
-    [UIView animateWithDuration:0.35 animations:^{
-        [_scrollView setContentInset:UIEdgeInsetsZero];
-        [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
-    }completion:^(BOOL finished) {
+    dispatch_after(0.35, dispatch_get_main_queue(), ^(void){
         [_animationView endAnimation];
         self.state = XLRefreshStatePulling;
-    }];
+    });
 }
+
+#pragma mark -
+#pragma mark Setter/Getter
 
 -(void)setRefreshProgress:(CGFloat)refreshProgress{
-    _textLabel.alpha = refreshProgress;
     _refreshProgress = refreshProgress;
+    
     _animationView.progress = refreshProgress;
+    _textLabel.alpha = refreshProgress;
 }
 
+-(BOOL)isRefreshing{
+    return _state == XLRefreshStateRefreshIng || _state == XLRefreshStatePulling;
+}
 
 @end

@@ -10,4 +10,6 @@
 
 @interface XLRefreshFooter : XLRefreshBase
 
++(XLRefreshFooter*)footerWithRefreshingBlock:(XLRefreshingBlock)block;
+
 @end

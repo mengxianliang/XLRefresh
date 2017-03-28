@@ -13,6 +13,9 @@
 +(XLRefreshHeader*)headerWithRefreshingBlock:(XLRefreshingBlock)block{
     XLRefreshHeader *header = [[XLRefreshHeader alloc] init];
     header.refreshingBlock = block;
+    header.stateTitle = @{XLStatePullingKey:@"下拉即可刷新",
+                          XLStateWillRefreshKey:@"释放刷新...",
+                          XLStateRefreshingKey:@"正在刷新..."};
     return header;
 }
 
@@ -45,4 +48,23 @@
         }
     }
 }
+
+-(void)startRefreshing{
+    [super startRefreshing];
+    [UIView animateWithDuration:0.35 animations:^{
+        [_scrollView setContentInset:UIEdgeInsetsMake(self.bounds.size.height, 0, 0, 0)];
+        [_scrollView setContentOffset:CGPointMake(0, -self.bounds.size.height) animated:false];
+    }];
+}
+
+-(void)endRefreshing{
+    [super endRefreshing];
+    [UIView animateWithDuration:0.35 animations:^{
+        [_scrollView setContentInset:UIEdgeInsetsZero];
+        [_scrollView setContentOffset:CGPointZero animated:false];
+    }completion:^(BOOL finished) {
+        
+    }];
+}
+
 @end

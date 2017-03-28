@@ -103,12 +103,12 @@
 			isa = PBXGroup;
 			children = (
 				5E773AF51E88AD3800ED1971 /* XLRefresh.h */,
-				5E773AF21E88AA2E00ED1971 /* XLRefreshBase.h */,
-				5E773AF31E88AA2E00ED1971 /* XLRefreshBase.m */,
 				5E773AEC1E88A98D00ED1971 /* XLRefreshHeader.h */,
 				5E773AED1E88A98D00ED1971 /* XLRefreshHeader.m */,
 				5E773AEF1E88A9A500ED1971 /* XLRefreshFooter.h */,
 				5E773AF01E88A9A500ED1971 /* XLRefreshFooter.m */,
+				5E773AF21E88AA2E00ED1971 /* XLRefreshBase.h */,
+				5E773AF31E88AA2E00ED1971 /* XLRefreshBase.m */,
 				5E773AF61E88DF4D00ED1971 /* XLRefreshAnimation.h */,
 				5E773AF71E88DF4D00ED1971 /* XLRefreshAnimation.m */,
 				5E773AF91E88E0DB00ED1971 /* XLRefreshAnimationLayer.h */,
@@ -356,6 +356,7 @@
 				5E773AE41E88A67A00ED1971 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

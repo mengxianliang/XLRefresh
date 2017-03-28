@@ -123,10 +123,7 @@
 }
 
 -(void)setProgress:(CGFloat)progress{
-    
     _progress = progress;
-    NSLog(@"当前进度是：%f",_progress);
-    
     [self setNeedsDisplay];
 }
 

@@ -26,15 +26,22 @@
 -(void)buildTable
 {
     self.view.backgroundColor = [UIColor whiteColor];
+    //防止UIScrollView和Navigation冲突问题
     [self.view addSubview:[UIView new]];
+    
+    self.title = @"XLRefresh";
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-    _tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
-        NSLog(@"刷新方法");
+//    _tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
+//        NSLog(@"刷新方法");
+//    }];
+    
+    _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
+        NSLog(@"加载更多方法");
     }];
 }
 
