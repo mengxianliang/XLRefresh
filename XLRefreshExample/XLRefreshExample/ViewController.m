@@ -46,7 +46,7 @@
 }
 
 -(NSArray*)classes{
-    return @[[TableViewExample class],[TableViewExample class],[TableViewExample class]];
+    return @[[TableViewExample class],[CollectionViewExample class],[WebViewExample class]];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

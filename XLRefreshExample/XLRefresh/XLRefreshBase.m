@@ -80,7 +80,7 @@
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    // 这个就算看不见也需要处理
+    
     if ([keyPath isEqualToString:XLRefreshKeyPathContentOffset]) {
         [self scrollViewContentOffsetDidChange:change];
     }else{

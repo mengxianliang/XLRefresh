@@ -54,8 +54,6 @@ typedef NS_ENUM(NSInteger,XLRefreshState){
 @property (nonatomic, assign) BOOL isRefreshing;
 //状态提示文字
 @property (nonatomic, strong) NSDictionary *stateTitle;
-/** 父控件 */
-//@property (weak, nonatomic, readonly) UIScrollView *scrollView;
 //更新frame
 -(void)updateRect NS_REQUIRES_SUPER;
 //开始刷新

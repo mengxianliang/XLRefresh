@@ -7,21 +7,38 @@
 //
 
 #import "WebViewExample.h"
-
-@interface WebViewExample ()
-
+#import "XLRefresh.h"
+@interface WebViewExample ()<UIWebViewDelegate>
+{
+    UIWebView *_webView;
+}
 @end
 
 @implementation WebViewExample
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:[UIView new]];
+    
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
+    _webView.delegate = self;
+    [self.view addSubview:_webView];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.baidu.com"]]];
+    _webView.scrollView.xl_header = [XLRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshMethod)];
+}
+
+-(void)refreshMethod{
+    [_webView reload];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    [webView.scrollView.xl_header endRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*
