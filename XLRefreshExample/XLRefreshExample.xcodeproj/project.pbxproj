@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5E1E3D661E8A715C00E0D343 /* CollectionViewExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3D651E8A715C00E0D343 /* CollectionViewExample.m */; };
-		5E1E3D691E8A716C00E0D343 /* TableViewExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3D681E8A716C00E0D343 /* TableViewExample.m */; };
-		5E1E3D6C1E8A717D00E0D343 /* WebViewExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3D6B1E8A717D00E0D343 /* WebViewExample.m */; };
 		5E773AD01E88A67A00ED1971 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E773ACF1E88A67A00ED1971 /* main.m */; };
 		5E773AD31E88A67A00ED1971 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E773AD21E88A67A00ED1971 /* AppDelegate.m */; };
 		5E773AD61E88A67A00ED1971 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E773AD51E88A67A00ED1971 /* ViewController.m */; };
@@ -22,15 +19,12 @@
 		5E773AF41E88AA2E00ED1971 /* XLRefreshBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E773AF31E88AA2E00ED1971 /* XLRefreshBase.m */; };
 		5E773AF81E88DF4D00ED1971 /* XLRefreshAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E773AF71E88DF4D00ED1971 /* XLRefreshAnimation.m */; };
 		5E773AFB1E88E0DB00ED1971 /* XLRefreshAnimationLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E773AFA1E88E0DB00ED1971 /* XLRefreshAnimationLayer.m */; };
+		5ECCE8861E8BF78A0076E108 /* CollectionViewExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECCE8811E8BF7890076E108 /* CollectionViewExample.m */; };
+		5ECCE8871E8BF78A0076E108 /* TableViewExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECCE8831E8BF7890076E108 /* TableViewExample.m */; };
+		5ECCE8881E8BF78A0076E108 /* WebViewExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECCE8851E8BF7890076E108 /* WebViewExample.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5E1E3D641E8A715C00E0D343 /* CollectionViewExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewExample.h; sourceTree = "<group>"; };
-		5E1E3D651E8A715C00E0D343 /* CollectionViewExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewExample.m; sourceTree = "<group>"; };
-		5E1E3D671E8A716C00E0D343 /* TableViewExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewExample.h; sourceTree = "<group>"; };
-		5E1E3D681E8A716C00E0D343 /* TableViewExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewExample.m; sourceTree = "<group>"; };
-		5E1E3D6A1E8A717D00E0D343 /* WebViewExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewExample.h; sourceTree = "<group>"; };
-		5E1E3D6B1E8A717D00E0D343 /* WebViewExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewExample.m; sourceTree = "<group>"; };
 		5E773ACB1E88A67A00ED1971 /* XLRefreshExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XLRefreshExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E773ACF1E88A67A00ED1971 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5E773AD11E88A67A00ED1971 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -54,6 +48,12 @@
 		5E773AF71E88DF4D00ED1971 /* XLRefreshAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLRefreshAnimation.m; sourceTree = "<group>"; };
 		5E773AF91E88E0DB00ED1971 /* XLRefreshAnimationLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLRefreshAnimationLayer.h; sourceTree = "<group>"; };
 		5E773AFA1E88E0DB00ED1971 /* XLRefreshAnimationLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLRefreshAnimationLayer.m; sourceTree = "<group>"; };
+		5ECCE8801E8BF7890076E108 /* CollectionViewExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewExample.h; sourceTree = "<group>"; };
+		5ECCE8811E8BF7890076E108 /* CollectionViewExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewExample.m; sourceTree = "<group>"; };
+		5ECCE8821E8BF7890076E108 /* TableViewExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewExample.h; sourceTree = "<group>"; };
+		5ECCE8831E8BF7890076E108 /* TableViewExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewExample.m; sourceTree = "<group>"; };
+		5ECCE8841E8BF7890076E108 /* WebViewExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewExample.h; sourceTree = "<group>"; };
+		5ECCE8851E8BF7890076E108 /* WebViewExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewExample.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,24 +67,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5E1E3D601E8A712C00E0D343 /* DemoVC */ = {
-			isa = PBXGroup;
-			children = (
-				5E1E3D671E8A716C00E0D343 /* TableViewExample.h */,
-				5E1E3D681E8A716C00E0D343 /* TableViewExample.m */,
-				5E1E3D641E8A715C00E0D343 /* CollectionViewExample.h */,
-				5E1E3D651E8A715C00E0D343 /* CollectionViewExample.m */,
-				5E1E3D6A1E8A717D00E0D343 /* WebViewExample.h */,
-				5E1E3D6B1E8A717D00E0D343 /* WebViewExample.m */,
-			);
-			path = DemoVC;
-			sourceTree = "<group>";
-		};
 		5E773AC21E88A67A00ED1971 = {
 			isa = PBXGroup;
 			children = (
 				5E773AE51E88A71800ED1971 /* XLRefresh */,
-				5E1E3D601E8A712C00E0D343 /* DemoVC */,
 				5E773ACD1E88A67A00ED1971 /* XLRefreshExample */,
 				5E773ACC1E88A67A00ED1971 /* Products */,
 			);
@@ -101,6 +87,7 @@
 		5E773ACD1E88A67A00ED1971 /* XLRefreshExample */ = {
 			isa = PBXGroup;
 			children = (
+				5ECCE87F1E8BF7890076E108 /* Example */,
 				5E773AD11E88A67A00ED1971 /* AppDelegate.h */,
 				5E773AD21E88A67A00ED1971 /* AppDelegate.m */,
 				5E773AD41E88A67A00ED1971 /* ViewController.h */,
@@ -140,6 +127,19 @@
 				5E773AEA1E88A93B00ED1971 /* UIScrollView+XLRefresh.m */,
 			);
 			path = XLRefresh;
+			sourceTree = "<group>";
+		};
+		5ECCE87F1E8BF7890076E108 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				5ECCE8801E8BF7890076E108 /* CollectionViewExample.h */,
+				5ECCE8811E8BF7890076E108 /* CollectionViewExample.m */,
+				5ECCE8821E8BF7890076E108 /* TableViewExample.h */,
+				5ECCE8831E8BF7890076E108 /* TableViewExample.m */,
+				5ECCE8841E8BF7890076E108 /* WebViewExample.h */,
+				5ECCE8851E8BF7890076E108 /* WebViewExample.m */,
+			);
+			path = Example;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,15 +214,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E1E3D691E8A716C00E0D343 /* TableViewExample.m in Sources */,
 				5E773AF41E88AA2E00ED1971 /* XLRefreshBase.m in Sources */,
 				5E773AFB1E88E0DB00ED1971 /* XLRefreshAnimationLayer.m in Sources */,
 				5E773AEB1E88A93B00ED1971 /* UIScrollView+XLRefresh.m in Sources */,
+				5ECCE8861E8BF78A0076E108 /* CollectionViewExample.m in Sources */,
 				5E773AF81E88DF4D00ED1971 /* XLRefreshAnimation.m in Sources */,
+				5ECCE8871E8BF78A0076E108 /* TableViewExample.m in Sources */,
 				5E773AD61E88A67A00ED1971 /* ViewController.m in Sources */,
 				5E773AD31E88A67A00ED1971 /* AppDelegate.m in Sources */,
-				5E1E3D661E8A715C00E0D343 /* CollectionViewExample.m in Sources */,
-				5E1E3D6C1E8A717D00E0D343 /* WebViewExample.m in Sources */,
+				5ECCE8881E8BF78A0076E108 /* WebViewExample.m in Sources */,
 				5E773AF11E88A9A500ED1971 /* XLRefreshFooter.m in Sources */,
 				5E773AEE1E88A98D00ED1971 /* XLRefreshHeader.m in Sources */,
 				5E773AD01E88A67A00ED1971 /* main.m in Sources */,
