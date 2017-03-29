@@ -14,7 +14,7 @@ iOS刷新工具:
 | UITableView | UICollectionView | UIWebView |
 | ---- | ---- | ---- |
 |![image](https://github.com/mengxianliang/XLChannelControl/blob/master/GIF/1.gif)| ![image](https://github.com/mengxianliang/XLChannelControl/blob/master/GIF/2.gif)| ![image](https://github.com/mengxianliang/XLChannelControl/blob/master/GIF/3.gif)|
-<br>
+
 ## 使用方法
 
 ```objc
