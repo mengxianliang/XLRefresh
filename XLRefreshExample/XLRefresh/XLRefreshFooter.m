@@ -30,7 +30,7 @@
 
 -(void)updateRect{
     [super updateRect];
-    self.frame = CGRectMake(0,[self targetY],_scrollView.bounds.size.width, XLRefreshFooterHeight);
+    self.frame = CGRectMake(0,_scrollView.bounds.size.height,_scrollView.bounds.size.width, XLRefreshHeight);
 }
 
 -(void)scrollViewContentOffsetDidChange:(NSDictionary *)change{
@@ -51,10 +51,10 @@
     }
     if (self.state == XLRefreshStateRefreshIng) {return;}
     //动画进度
-    self.refreshProgress = distance/XLRefreshHeaderHeight;
+    self.refreshProgress = distance/XLRefreshHeight;
     //拖拽时 当拖拽距离大于header的高度时 状态切换成准备拖拽的状态
     if (_scrollView.isDragging) {
-        if (distance <= XLRefreshHeaderHeight){
+        if (distance <= XLRefreshHeight){
             self.state = XLRefreshStatePulling;
         }else{
             self.state = XLRefreshStateWillRefresh;
@@ -66,13 +66,11 @@
     }
 }
 
-//目标位置
--(CGFloat)targetY{
-    CGFloat Y = _scrollView.contentSize.height;
-    if (_scrollView.contentSize.height < _scrollView.bounds.size.height) {
-        Y = _scrollView.bounds.size.height;
+-(void)scrollViewContentSizeDidChange:(NSDictionary *)change{
+    if (![[change objectForKey:@"new"] isEqual:[change objectForKey:@"old"]]) {
+        CGFloat Y = _scrollView.bounds.size.height > _scrollView.contentSize.height ? _scrollView.bounds.size.height : _scrollView.contentSize.height;
+        self.frame = CGRectMake(0,Y,_scrollView.bounds.size.width, XLRefreshHeight);
     }
-    return Y;
 }
 
 -(void)startRefreshing{
@@ -93,8 +91,10 @@
         [_scrollView setContentInset:UIEdgeInsetsZero];
         if (_scrollView.contentSize.height < _scrollView.bounds.size.height) {
             [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+            self.frame = CGRectMake(0, _scrollView.bounds.size.height + XLRefreshHeight, self.bounds.size.width, self.bounds.size.height);
         }else{
             [_scrollView setContentOffset:CGPointMake(0, _scrollView.contentSize.height - _scrollView.bounds.size.height) animated:false];
+            self.frame = CGRectMake(0, _scrollView.contentSize.height + XLRefreshHeight, self.bounds.size.width, self.bounds.size.height);
         }
     }];
 }

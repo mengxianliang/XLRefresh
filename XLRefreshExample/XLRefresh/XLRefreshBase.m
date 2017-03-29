@@ -29,6 +29,8 @@
     _textLabel = [[UILabel alloc] init];
     _textLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_textLabel];
+    
+    self.layer.masksToBounds = true;
 }
 
 //2.添加功能
@@ -50,13 +52,17 @@
 //3.放置SubView
 -(void)layoutSubviews{
     [super layoutSubviews];
-    CGFloat labelWidth = self.bounds.size.width/3;
-    CGFloat height = self.bounds.size.height;
-    _textLabel.frame = CGRectMake(0, 0, labelWidth, height);
-    _textLabel.center = CGPointMake(self.bounds.size.width/2.0f, _textLabel.center.y);
     
+    CGFloat labelWidth = self.bounds.size.width/3;
+    CGFloat height = XLRefreshHeight;
     CGFloat animationWidth = height*0.6;
+    
+    
+    _textLabel.bounds = CGRectMake(0, 0, labelWidth, height);
+    _textLabel.center = CGPointMake(self.bounds.size.width/2+animationWidth/2, self.bounds.size.height/2.0f);
+    
     _animationView.frame = CGRectMake(CGRectGetMinX(_textLabel.frame) - animationWidth, 0, animationWidth, height);
+    _animationView.center = CGPointMake(_animationView.center.x, self.bounds.size.height/2.0f);
 }
 
 -(void)updateRect{}
@@ -73,22 +79,27 @@
 -(void)addObservers{
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
     [_scrollView addObserver:self forKeyPath:XLRefreshKeyPathContentOffset options:options context:nil];
+    [_scrollView addObserver:self forKeyPath:XLRefreshKeyPathContentSize options:options context:nil];
 }
 
 -(void)removeObservers{
     [self.superview removeObserver:self forKeyPath:XLRefreshKeyPathContentOffset];
+    [self.superview removeObserver:self forKeyPath:XLRefreshKeyPathContentSize];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
     
     if ([keyPath isEqualToString:XLRefreshKeyPathContentOffset]) {
         [self scrollViewContentOffsetDidChange:change];
+    }else if([keyPath isEqualToString:XLRefreshKeyPathContentSize]){
+        [self scrollViewContentSizeDidChange:change];
     }else{
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
-- (void)scrollViewContentOffsetDidChange:(NSDictionary *)change{}
+-(void)scrollViewContentOffsetDidChange:(NSDictionary *)change{}
+-(void)scrollViewContentSizeDidChange:(NSDictionary *)change{}
 
 #pragma mark -
 #pragma mark Setter
@@ -115,11 +126,12 @@
 -(void)startRefreshing{
     self.state = XLRefreshStateRefreshIng;
     self.refreshProgress = 1;
-    [_animationView startAnimation];
     [self sendRefresingCallBack];
+    [_animationView startAnimation];
 }
 
 -(void)endRefreshing{
+    
     dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, XLRefreshAnimationDuration * NSEC_PER_SEC);
     dispatch_after(time, dispatch_get_main_queue(), ^(void){
         [_animationView endAnimation];
@@ -146,9 +158,12 @@
     _refreshProgress = refreshProgress;
     
     _animationView.progress = refreshProgress;
+    self.alpha = refreshProgress;
     
-    _textLabel.alpha = refreshProgress;
-    _animationView.alpha = refreshProgress;
+    refreshProgress = refreshProgress > 1 ? 1 : refreshProgress;
+    CGRect rect = self.bounds;
+    rect.size.height = refreshProgress * XLRefreshHeight;
+    self.bounds = rect;
 }
 
 -(BOOL)isRefreshing{

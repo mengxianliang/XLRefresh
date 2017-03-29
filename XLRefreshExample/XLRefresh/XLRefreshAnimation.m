@@ -12,7 +12,6 @@
 @interface XLRefreshAnimation ()
 {
     XLRefreshAnimationLayer *_layer;
-    
     BOOL _animating;
 }
 @end
@@ -35,26 +34,27 @@
 }
 
 -(void)setProgress:(CGFloat)progress{
-    _progress = progress;
     if (_animating == true) {return;}
-    //旋转
-    if (_progress > 1) {
-        CGFloat angle = M_PI * (_progress - 1.0f);
-        _layer.affineTransform = CGAffineTransformMakeRotation(angle);
-    }else{//画圆
-        _layer.affineTransform = CGAffineTransformIdentity;
-        _layer.progress = progress;
-    }
+    //画圆
+    progress = progress > 1 ? 1 : progress;
+    _layer.progress = progress;
+    
+//    //旋转
+//    if (_progress > 1) {
+//        CGFloat angle = M_PI * (_progress - 1.0f);
+//        _layer.affineTransform = CGAffineTransformMakeRotation(angle);
+//    }else{
+//        _layer.affineTransform = CGAffineTransformIdentity;
+//    }
 }
 
 //旋转动画
 -(void)startAnimation{
     _animating = true;
     self.progress = 1.0f;
-    _layer.affineTransform = CGAffineTransformIdentity;
     CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotationAnimation.toValue = @(M_PI * 2.0);
-    rotationAnimation.duration = 0.5f;
+    rotationAnimation.duration = 0.7f;
     rotationAnimation.autoreverses = NO;
     rotationAnimation.repeatCount = HUGE_VALF;
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];

@@ -22,13 +22,13 @@
     //总宽度
     CGFloat W = self.bounds.size.width;
     //线的长度
-    CGFloat h = H/4.0f;
+    CGFloat h = 20;
     //线段最长移动距离
     CGFloat maxDistance = H/2 - h;
     //线段当前移动距离
     CGFloat moveDisatnce = maxDistance * _progress*2;
     //弧的半径
-    CGFloat r = W/5.0f;
+    CGFloat r = 10;
     //箭头长度
     CGFloat arrowLength = 2.0f;
     //箭头角度

@@ -30,13 +30,12 @@
 
 -(void)updateRect{
     [super updateRect];
-    self.frame = CGRectMake(0, -XLRefreshHeaderHeight,_scrollView.bounds.size.width, XLRefreshHeaderHeight);
+    self.frame = CGRectMake(0, -XLRefreshHeight,_scrollView.bounds.size.width, XLRefreshHeight);
 }
 
 -(void)scrollViewContentOffsetDidChange:(NSDictionary *)change{
     
     [super scrollViewContentOffsetDidChange:change];
-    
     if (_scrollView.contentOffset.y > 0) {return;}
     //拖拽的距离
     CGFloat distance = fabs(_scrollView.contentOffset.y);
@@ -44,10 +43,10 @@
     self.center = CGPointMake(self.center.x, -distance/2.0f);
     if (self.state == XLRefreshStateRefreshIng) {return;}
     //动画进度
-    self.refreshProgress = distance/XLRefreshHeaderHeight;
+    self.refreshProgress = distance/XLRefreshHeight;
     //拖拽时 当拖拽距离大于header的高度时 状态切换成准备拖拽的状态
     if (_scrollView.isDragging) {
-        if (distance <= XLRefreshHeaderHeight){
+        if (distance <= XLRefreshHeight){
             self.state = XLRefreshStatePulling;
         }else{
             self.state = XLRefreshStateWillRefresh;
@@ -71,7 +70,8 @@
     [super endRefreshing];
     [UIView animateWithDuration:XLRefreshAnimationDuration animations:^{
         [_scrollView setContentInset:UIEdgeInsetsZero];
-        [_scrollView setContentOffset:CGPointZero animated:false];
+        [_scrollView setContentOffset:CGPointZero];
+        self.frame = CGRectMake(0, -XLRefreshHeight, self.bounds.size.width, self.bounds.size.height);
     }];
 }
 

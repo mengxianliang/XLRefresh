@@ -11,19 +11,21 @@
 
 typedef void (^XLRefreshingBlock)();
 
-static CGFloat XLRefreshHeaderHeight = 80.0;
+//刷新控件高度
+static CGFloat XLRefreshHeight = 80.0;
+//刷新动画持续时间
+static CGFloat XLRefreshAnimationDuration = 0.3;
 
-static CGFloat XLRefreshFooterHeight = 60.0;
-
-static CGFloat XLRefreshAnimationDuration = 0.35;
-
+//KVO
 static NSString *XLRefreshKeyPathContentOffset = @"contentOffset";
+static NSString *XLRefreshKeyPathContentSize = @"contentSize";
 
+//刷新状态提示信息对应的键
 static NSString * XLStatePullingKey = @"XLStatePullingKey";
 static NSString * XLStateWillRefreshKey = @"XLStateWillRefreshKey";
 static NSString * XLStateRefreshingKey = @"XLStateRefreshingKey";
 
-// 运行时objc_msgSend
+//运行时objc_msgSend
 #define XLRefreshMsgSend(...) ((void (*)(void *, SEL, UIView *))objc_msgSend)(__VA_ARGS__)
 #define XLRefreshMsgTarget(target) (__bridge void *)(target)
 
@@ -62,6 +64,7 @@ typedef NS_ENUM(NSInteger,XLRefreshState){
 -(void)endRefreshing NS_REQUIRES_SUPER;
 //scrollView滚动
 -(void)scrollViewContentOffsetDidChange:(NSDictionary *)change;
+-(void)scrollViewContentSizeDidChange:(NSDictionary *)change;
 //设置回调对象和方法
 -(void)setRefreshingTarget:(id)target refreshingAction:(SEL)action;
 
