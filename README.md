@@ -9,7 +9,7 @@
 
 | UITableView | UICollectionView | UIWebView |
 | ---- | ---- | ---- |
-|![image](https://github.com/mengxianliang/XLChannelControl/blob/master/GIF/1.gif)| ![image](https://github.com/mengxianliang/XLChannelControl/blob/master/GIF/2.gif)| ![image](https://github.com/mengxianliang/XLChannelControl/blob/master/GIF/3.gif)|
+|![image](https://github.com/mengxianliang/XLRefresh/blob/master/GIF/1.gif)| ![image](https://github.com/mengxianliang/XLRefresh/blob/master/GIF/2.gif)| ![image](https://github.com/mengxianliang/XLRefresh/blob/master/GIF/3.gif)|
 
 ### 使用方法
 
@@ -17,7 +17,7 @@
     _tableView.xl_header = [XLRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshMethod)];
     _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMethod)];
 ```
-或者：
+或：
 ```objc
     _tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
         
@@ -25,5 +25,4 @@
     _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
         
     }];
-
 ```
