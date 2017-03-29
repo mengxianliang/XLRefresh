@@ -161,9 +161,7 @@
     self.alpha = refreshProgress;
     
     refreshProgress = refreshProgress > 1 ? 1 : refreshProgress;
-    CGRect rect = self.bounds;
-    rect.size.height = refreshProgress * XLRefreshHeight;
-    self.bounds = rect;
+    self.bounds = CGRectMake(0, 0, self.bounds.size.width, refreshProgress * XLRefreshHeight);
 }
 
 -(BOOL)isRefreshing{
