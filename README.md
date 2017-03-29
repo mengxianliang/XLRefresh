@@ -1,7 +1,6 @@
 # XLRefresh
 
-## 说明
-iOS刷新工具:
+### 说明
 * 功能有下拉刷新、上拉加载
 * 支持UITableView、UICollectionView、UIWebView、UIScrollView
 * 支持Block方式和代理方式的回调方法
