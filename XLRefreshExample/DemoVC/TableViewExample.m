@@ -28,7 +28,6 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:[UIView new]];
-    
     //创建TableView
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;

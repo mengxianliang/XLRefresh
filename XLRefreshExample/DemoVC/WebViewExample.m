@@ -35,6 +35,11 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     [webView.scrollView.xl_header endRefreshing];
+    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+}
+
+-(void)webViewDidStartLoad:(UIWebView *)webView{
+    self.title = @"加载中...";
 }
 
 - (void)didReceiveMemoryWarning {

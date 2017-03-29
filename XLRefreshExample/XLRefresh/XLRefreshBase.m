@@ -146,6 +146,7 @@
     _refreshProgress = refreshProgress;
     
     _animationView.progress = refreshProgress;
+    
     _textLabel.alpha = refreshProgress;
     _animationView.alpha = refreshProgress;
 }
