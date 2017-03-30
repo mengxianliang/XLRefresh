@@ -13,11 +13,12 @@
 
 ### 使用方法
 
+* 代理方式创建：
 ```objc
     _tableView.xl_header = [XLRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshMethod)];
     _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMethod)];
 ```
-或：
+* block方式创建：
 ```objc
     _tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
         
