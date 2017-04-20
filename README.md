@@ -14,16 +14,18 @@
 ### 使用方法
 
 * 代理方式创建：
+
 ```objc
-    _tableView.xl_header = [XLRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshMethod)];
-    _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMethod)];
+_tableView.xl_header = [XLRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshMethod)];
+_tableView.xl_footer = [XLRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMethod)];
 ```
 * block方式创建：
+
 ```objc
-    _tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
+_tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
         
-    }];
-    _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
+}];
+_tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
         
-    }];
+}];
 ```
