@@ -27,16 +27,14 @@
 -(void)buildTable
 {
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:[UIView new]];
     //创建TableView
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     //添加下拉刷新和上拉加载模块
     _tableView.xl_header = [XLRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshMethod)];
     _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMethod)];
-    
     //手动实现下拉/上拉
     _segment = [[UISegmentedControl alloc] initWithItems:@[@"手动刷新",@"手动加载"]];
     [_segment addTarget:self action:@selector(segmentMethod:) forControlEvents:UIControlEventValueChanged];

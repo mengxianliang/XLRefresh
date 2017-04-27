@@ -44,6 +44,9 @@
         _scrollView = (UIScrollView*)newSuperview;
         //允许垂直
         _scrollView.alwaysBounceVertical = YES;
+        // 记录UIScrollView最开始的contentInset
+        _scrollViewOriginalInset = _scrollView.contentInset;
+        
         [self updateRect];
         [self addObservers];
     }
@@ -106,7 +109,6 @@
 
 -(void)setState:(XLRefreshState)state{
     _state = state;
-    
     switch (state) {
         case XLRefreshStatePulling:
             _textLabel.text = _stateTitle[XLStatePullingKey];
@@ -131,7 +133,6 @@
 }
 
 -(void)endRefreshing{
-    
     dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, XLRefreshAnimationDuration * NSEC_PER_SEC);
     dispatch_after(time, dispatch_get_main_queue(), ^(void){
         [_animationView endAnimation];

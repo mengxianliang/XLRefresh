@@ -31,9 +31,8 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:[UIView new]];
     
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
+    _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     _webView.delegate = self;
     [self.view addSubview:_webView];
     _webView.scrollView.xl_header = [XLRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshMethod)];

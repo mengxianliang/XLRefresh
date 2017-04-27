@@ -41,6 +41,9 @@ typedef NS_ENUM(NSInteger,XLRefreshState){
 @interface XLRefreshBase : UIView{
     
     __weak UIScrollView *_scrollView;
+    
+    /** 记录scrollView刚开始的inset */
+    UIEdgeInsets _scrollViewOriginalInset;
 }
 //刷新状态
 @property (nonatomic, assign) XLRefreshState state;
