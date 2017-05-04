@@ -1,7 +1,8 @@
 # XLRefresh
 
 ### 功能说明
-* 功能有下拉刷新、上拉加载
+* 下拉刷新、上拉加载
+* 手动刷新、加载
 * 支持UITableView、UICollectionView、UIWebView、UIScrollView
 * 支持Block方式和代理方式的回调方法
 
@@ -17,6 +18,7 @@
 
 ```objc
 _tableView.xl_header = [XLRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshMethod)];
+\\或
 _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMethod)];
 ```
 **block方式创建：**
@@ -25,14 +27,24 @@ _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingTarget:self refreshi
 _tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
         
 }];
+\\或
 _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
         
 }];
+```
+
+**手动刷新**
+
+```objc
+[_tableView.xl_header startRefreshing];
+\\或
+[_tableView.xl_footer startRefreshing];
 ```
 
 **结束刷新**
 
 ```objc
 [_tableView.xl_header endRefreshing];
+\\或
 [_tableView.xl_footer endRefreshing];
 ```
