@@ -18,7 +18,7 @@
 
 ```objc
 _tableView.xl_header = [XLRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshMethod)];
-\\或
+
 _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreMethod)];
 ```
 **block方式创建：**
@@ -27,7 +27,7 @@ _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingTarget:self refreshi
 _tableView.xl_header = [XLRefreshHeader headerWithRefreshingBlock:^{
         
 }];
-\\或
+
 _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
         
 }];
@@ -37,7 +37,7 @@ _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
 
 ```objc
 [_tableView.xl_header startRefreshing];
-\\或
+
 [_tableView.xl_footer startRefreshing];
 ```
 
@@ -45,6 +45,6 @@ _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
 
 ```objc
 [_tableView.xl_header endRefreshing];
-\\或
+
 [_tableView.xl_footer endRefreshing];
 ```
