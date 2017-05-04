@@ -33,7 +33,7 @@ _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
 }];
 ```
 
-**手动刷新**
+**手动刷新：**
 
 ```objc
 [_tableView.xl_header startRefreshing];
@@ -41,7 +41,7 @@ _tableView.xl_footer = [XLRefreshFooter footerWithRefreshingBlock:^{
 [_tableView.xl_footer startRefreshing];
 ```
 
-**结束刷新**
+**结束刷新：**
 
 ```objc
 [_tableView.xl_header endRefreshing];
