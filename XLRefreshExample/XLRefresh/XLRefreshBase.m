@@ -9,11 +9,11 @@
 #import "XLRefreshBase.h"
 #import "XLRefreshAnimation.h"
 
-@implementation XLRefreshBase
-{
+@implementation XLRefreshBase {
     UILabel *_textLabel;
     XLRefreshAnimation *_animationView;
 }
+
 -(instancetype)init{
     if (self = [super init]) {
         [self initUI];
